@@ -6,14 +6,10 @@ const jwt = require("jsonwebtoken");
 var User = require("../models/user");
 var config = require("../config/config.json");
 var { validationResult } = require("express-validator");
-const auth = require('../check_authorization/user_authorization');
 var constants_function = require("../constants/constants");
 var constants = constants_function("user");
 var User_Validator = require("../validations/user_validations");
 
-router.get('/', function(req, res) {
-    res.send("Ok");
-  });
 
 router.post('/signup', User_Validator(), async (req, res) => {
     try {
@@ -63,7 +59,7 @@ router.post('/signup', User_Validator(), async (req, res) => {
 //POST Request for Login :
 router.post("/login", async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password ,role} = req.body;
 
         //Finding Admin with username :
         const user = await User.find({ email: email });
@@ -74,11 +70,19 @@ router.post("/login", async (req, res) => {
                 "status": {
                     "success": false,
                     "code": 401,
-                    "message": constants.AUTHORIZATION_FAILED
+                    "message": constants.MODEL_NOT_FOUND
                 }
             });
         }
-
+        if(user[0].role!==role){
+            return res.status(401).json({
+                "status": {
+                    "success": false,
+                    "code": 401,
+                    "message": constants.WRONG_ROLE
+                }
+            });
+        }
         //Comparing Hashed Password Using Bcrypt :
         bcrypt.compare(password, user[0].password, (err, result) => {
 

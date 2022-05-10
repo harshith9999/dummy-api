@@ -1,25 +1,27 @@
-module.exports = function constants(model){
+module.exports = function constants(model) {
 
     //Constants Json :
     const constants = {
-        
+
         //Request Succesful (Status Code: 200) :
         SUCCESSFUL: "request successful",
 
         //Request Un-Succesful (Status Code: 400) :
         UN_SUCCESSFUL: "request un-successful",
 
-        WRONG_REQUEST:"Status value should be in either of these 'NEW' or 'IN_PROGRESS' or 'CANCELLED' or 'COMPLETED'",
+        WRONG_REQUEST: "Status value should be in either of these 'NEW' or 'IN_PROGRESS' or 'CANCELLED' or 'COMPLETED'",
 
-        EMPTY:' should not be empty',
+        EMPTY: ' should not be empty',
 
-        INVALID_DATE:'invalid date',
+        INVALID_DATE: 'invalid date',
         //Not found (Status Code: 404) :
         MODEL_NOT_FOUND: model + " not found",
 
-        EXISTED_USER: model +" already exists",
+        WRONG_ROLE: model + " should change the role",
+
+        EXISTED_USER: model + " already exists",
         //Not found (Status Code: 404) :
-        MODELS_NOT_FOUND: "No "+ model +"s",
+        MODELS_NOT_FOUND: "No " + model + "s",
 
         //Post request (Status code: 201) :
         MODEL_CREATE: "request successful, " + model + " created succesfully",

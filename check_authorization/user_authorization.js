@@ -13,11 +13,9 @@ var constants = constants_function();
 //Function to check authentication for Admin :
 module.exports = async(req, res, next)=>{
     try {
-        
         //Verifying the Token :
-        const token = await req.headers.authorization.split(" ")[1];
-        const decoded = await jwt.verify(token, config.ADMIN_JWT_KEY);
-        req.adminData = decoded;
+        const token = await req.headers.authorization.split(" ")[0];
+        await jwt.verify(token, config.USER_JWT_KEY);
         next();
 
     //Error Catching :
